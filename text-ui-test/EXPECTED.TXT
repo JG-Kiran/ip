@@ -1,3 +1,24 @@
 Hello! I'm John
 How may I assist you?
+Got it. I've added this task:
+  [T][ ] firsttask
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+  [D][ ] homework (by: tomorrow)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+  [E][ ] party (from: now to: forever)
+Now you have 3 tasks in the list.
+Nice! I've marked this task as done:
+  [T][X] firsttask
+Nice! I've marked this task as done:
+  [E][X] party (from: now to: forever)
+OK, I've marked this task as not done yet:
+  [D][ ] homework (by: tomorrow)
+Noted. I've removed this task:
+  [E][X] party (from: now to: forever)
+Now you have 2 tasks in the list.
+1. [T][X] firsttask
+2. [D][ ] homework (by: tomorrow)
+☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 Bye. Hope to see you again soon!

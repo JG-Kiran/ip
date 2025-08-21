@@ -1,1 +1,10 @@
+todo firsttask
+deadline homework /by tomorrow
+event party /from now /to forever
+mark 1
+mark 3
+unmark 2
+delete 3
+list
+blah
 bye

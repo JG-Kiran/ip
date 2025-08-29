@@ -1,4 +1,4 @@
-package Tasks;
+package Task;
 
 public abstract class TaskItem {
     protected final String name;

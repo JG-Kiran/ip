@@ -1,8 +1,4 @@
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.TaskItem;
-import Tasks.TaskList;
-import Tasks.Todo;
+import Task.*;
 
 import java.io.File;
 import java.io.FileWriter;

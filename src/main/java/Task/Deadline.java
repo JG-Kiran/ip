@@ -30,6 +30,6 @@ public class Deadline extends TaskItem {
 
     @Override
     public String toSaveString() {
-        return "D|" + isDone + "|" + name + "|" + dateToString(deadline);
+        return "D|" + isDone + "|" + name + "|" + deadline;
     }
 }

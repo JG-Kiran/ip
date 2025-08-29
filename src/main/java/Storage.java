@@ -5,9 +5,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles persistence of tasks to and from the filesystem.
+ * Responsible for reading a saved task list at startup and saving updates
+ * after task mutations.
+ */
 public class Storage {
     private final File file = new File("data/john.txt");
 
+    /**
+     * Constructs a Storage bound to the given file path.
+     */
     public Storage() {
         ensureFileReady();
     }
@@ -26,6 +34,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from disk into memory.
+     *
+     * @return a {@link TaskList} populated with tasks from the save file; empty list if file is missing
+     */
     public TaskList load() {
         TaskList list = new TaskList();
         try (Scanner sc = new Scanner(file)) {
@@ -53,6 +66,11 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Writes the given tasks to disk, overwriting any existing contents.
+     *
+     * @param tasks list of tasks to save
+     */
     public void save(TaskList tasks) {
         try (FileWriter fw = new FileWriter(file)) {
             for (TaskItem t : tasks.view()) {

@@ -31,6 +31,6 @@ public class Event extends TaskItem {
     }
 
     @Override public String toSaveString() {
-        return "E|" + isDone + "|" + name + "|" + dateToString(from) + "|" + dateToString(to);
+        return "E|" + isDone + "|" + name + "|" + from + "|" + to;
     }
 }

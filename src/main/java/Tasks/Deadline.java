@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Deadline extends TaskItem {
     private final String by;
 
@@ -6,22 +8,26 @@ public class Deadline extends TaskItem {
         this.by = by;
     }
 
-    public Deadline(String name, boolean done, String by) {
+    public Deadline(String name, boolean isDone, String by) {
         super(name);
         this.by = by;
-        if (done) {
+        if (isDone) {
             super.markDone();
         }
     }
 
     @Override
-    public String typeTag() { return "[D]"; }
+    public String typeTag() {
+        return "[D]";
+    }
 
     @Override
-    public String extraDetail() { return " (by: " + by + ")"; }
+    public String extraDetail() {
+        return " (by: " + by + ")";
+    }
 
     @Override
     public String toSaveString() {
-        return String.join(" | ", "D", marked ? "1" : "0", name, by);
+        return "D|" + isDone + "|" + name + "|" + by;
     }
 }

@@ -1,10 +1,18 @@
+package Tasks;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class TaskList {
     private final ArrayList<TaskItem> items = new ArrayList<>();
     private int size = 0;
 
     public int getSize() { return size; }
+
+    public List<TaskItem> view() {
+        return Collections.unmodifiableList(items);
+    }
 
     public void list() {
         for (int i = 0; i < size; i++) {

@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Event extends TaskItem {
     private final String from;
     private final String to;
@@ -18,7 +20,9 @@ public class Event extends TaskItem {
     }
 
     @Override
-    protected String typeTag() { return "[E]"; }
+    protected String typeTag() {
+        return "[E]";
+    }
 
     @Override
     protected String extraDetail() {
@@ -26,6 +30,6 @@ public class Event extends TaskItem {
     }
 
     @Override public String toSaveString() {
-        return String.join(" | ", "E", marked ? "1" : "0", name, from, to);
+        return "E|" + isDone + "|" + name + "|" + from + "|" + to;
     }
 }

@@ -1,24 +1,33 @@
-package ;
+package Tasks;
 
 public abstract class TaskItem {
     protected final String name;
-    protected boolean marked;
+    protected boolean isDone;
 
     public TaskItem(String name) {
         this.name = name;
-        this.marked = false;
+        this.isDone = false;
     }
 
-    public void markDone() { this.marked = true; }
-    public void markUndone() { this.marked = false; }
+    public void markDone() {
+        this.isDone = true;
+    }
+
+    public void markUndone() {
+        this.isDone = false;
+    }
 
     protected abstract String typeTag();
-    protected String extraDetail() { return ""; }
+
+    protected String extraDetail() {
+        return "";
+    }
+
     public abstract String toSaveString();
 
     @Override
     public String toString() {
-        String status = marked ? "[X] " : "[ ] ";
+        String status = isDone ? "[X] " : "[ ] ";
         return typeTag() + status + name + extraDetail();
     }
 }

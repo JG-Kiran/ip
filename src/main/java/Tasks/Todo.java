@@ -1,13 +1,13 @@
+package Tasks;
+
 public class Todo extends TaskItem {
     public Todo(String name) {
         super(name);
     }
 
-    public Todo(String name, boolean done) {
+    public Todo(String name, boolean isDone) {
         super(name);
-        if (done) {
-            super.markDone();
-        }
+        markDone();
     }
 
     @Override
@@ -15,6 +15,6 @@ public class Todo extends TaskItem {
 
     @Override
     public String toSaveString() {
-        return String.join(" | ", "T", marked ? "1" : "0", name);
+        return "T|" + isDone + "|" + name;
     }
 }

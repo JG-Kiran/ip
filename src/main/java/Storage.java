@@ -1,4 +1,72 @@
-package PACKAGE_NAME;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.TaskItem;
+import Tasks.TaskList;
+import Tasks.Todo;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Storage {
+    private final File file = new File("data/john.txt");
+
+    public Storage() {
+        ensureFileReady();
+    }
+
+    private void ensureFileReady() {
+        File parent = file.getParentFile();
+        if (parent != null && !parent.exists()) {
+            parent.mkdir();                // create "data/" if missing
+        }
+        if (!file.exists()) {
+            try {
+                file.createNewFile();       // create "john.txt" if missing
+            } catch (IOException e) {
+                System.out.println("[Warn] Cannot create save file: " + e.getMessage());
+            }
+        }
+    }
+
+    public TaskList load() {
+        TaskList list = new TaskList();
+        // If file is empty/newly created, this just returns []
+        try (Scanner sc = new Scanner(file)) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine().trim();
+                if (line.isEmpty()) continue;
+                String[] p = line.split("\\|");
+                String type = p[0];
+                boolean isDone = "1".equals(p[1]);
+                String desc = p[2];
+
+                switch (type) {
+                    case "T": list.add(new Todo(desc, isDone));
+                    break;
+                    case "D": list.add(new Deadline(desc, isDone, p[3]));
+                    break;
+                    case "E": list.add(new Event(desc, isDone, p[3], p[4]));
+                    break;
+                    default:  /* ignore unknown lines */
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("[Warn] Load failed: " + e.getMessage());
+        }
+        return list;
+    }
+
+    public void save(TaskList tasks) {
+        // Parent dir is already ensured in constructor; safe to write.
+        try (FileWriter fw = new FileWriter(file)) {
+            for (TaskItem t : tasks.view()) {
+                fw.write(t.toSaveString());
+                fw.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            System.out.println("[Warn] Save failed: " + e.getMessage());
+        }
+    }
 }

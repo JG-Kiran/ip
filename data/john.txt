@@ -1,0 +1,2 @@
+E|false|bankai|now|forever
+T|true|testagain

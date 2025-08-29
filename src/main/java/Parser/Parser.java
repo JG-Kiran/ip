@@ -14,6 +14,13 @@ import Exception.DukeException;
 
 public class Parser {
 
+    /**
+     * Parses a raw user command line and creates an appropriate {@link Command}.
+     *
+     * @param input the entire line typed by the user
+     * @return a command object ready to execute
+     * @throws DukeException if the command is unknown or arguments are invalid
+     */
     public static Command parse(String input) throws DukeException {
         String trimmed = input.trim();
         if (trimmed.isEmpty()) {
@@ -52,6 +59,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Retrieves any integers within the given string
+     *
+     * @param s input line
+     * @return an integer representing the index of the item
+     * @throws DukeException if the index is an invalid value
+     */
     private static int parseIndex(String s) throws DukeException {
         try {
             int i = Integer.parseInt(s.trim());

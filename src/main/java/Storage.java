@@ -20,6 +20,9 @@ public class Storage {
         ensureFileReady();
     }
 
+    /**
+     * Ensures the parent directory and file exist, creating them when necessary.
+     */
     private void ensureFileReady() {
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {

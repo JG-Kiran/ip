@@ -55,7 +55,7 @@ public class John {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
 
-        TaskItem t = new Todo(desc);
+        TaskItem t = new Todo(desc, false);
         tasks.add(t);
     }
 
@@ -66,13 +66,17 @@ public class John {
             throw new DukeException("☹ OOPS!!! The description of a deadline must have '/by'.");
         }
 
-        String[] parts = desc.split("/by", 2);
+        String[] deadline = desc.split("/by", 2);
 
-        if (parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The deadline description or time cannot be empty.");
+        if (deadline[0].trim().isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The deadline description cannot be empty.");
         }
 
-        TaskItem t = new Deadline(parts[0].trim(), parts[1].trim());
+        if (deadline[1].trim().isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The deadline datetime cannot be empty.");
+        }
+
+        TaskItem t = new Deadline(deadline[0].trim(), false, deadline[1].trim());
         tasks.add(t);
     }
 
@@ -84,16 +88,22 @@ public class John {
         }
 
         String[] first = desc.split("/from", 2);
-        String[] second = first[1].split("/to", 2);
+        if (first[0].trim().isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The even description cannot be empty.");
+        }
         String name = first[0].trim();
+
+        String[] second = first[1].split("/to", 2);
+        if (second[0].trim().isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The event start datetime cannot be empty.");
+        }
         String from = second[0].trim();
+        if (second[1].trim().isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The event end datetime cannot be empty.");
+        }
         String to = second[1].trim();
 
-        if (name.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The event description, from, or to cannot be empty.");
-        }
-
-        TaskItem t = new Event(name, from, to);
+        TaskItem t = new Event(name, false, from, to);
         tasks.add(t);
     }
 

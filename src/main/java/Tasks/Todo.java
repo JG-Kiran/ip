@@ -1,17 +1,18 @@
 package Tasks;
 
 public class Todo extends TaskItem {
-    public Todo(String name) {
-        super(name);
-    }
 
     public Todo(String name, boolean isDone) {
         super(name);
-        markDone();
+        if (isDone) {
+            super.markDone();
+        }
     }
 
     @Override
-    public String typeTag() { return "[T]"; }
+    public String typeTag() {
+        return "[T]";
+    }
 
     @Override
     public String toSaveString() {

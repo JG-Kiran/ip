@@ -19,11 +19,11 @@ public class Storage {
     private void ensureFileReady() {
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
-            parent.mkdir();                // create "data/" if missing
+            parent.mkdir();
         }
         if (!file.exists()) {
             try {
-                file.createNewFile();       // create "john.txt" if missing
+                file.createNewFile();
             } catch (IOException e) {
                 System.out.println("[Warn] Cannot create save file: " + e.getMessage());
             }
@@ -32,7 +32,6 @@ public class Storage {
 
     public TaskList load() {
         TaskList list = new TaskList();
-        // If file is empty/newly created, this just returns []
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine().trim();
@@ -59,7 +58,6 @@ public class Storage {
     }
 
     public void save(TaskList tasks) {
-        // Parent dir is already ensured in constructor; safe to write.
         try (FileWriter fw = new FileWriter(file)) {
             for (TaskItem t : tasks.view()) {
                 fw.write(t.toSaveString());

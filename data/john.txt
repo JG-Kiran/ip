@@ -1,2 +1,2 @@
-E|false|bankai|now|forever
-T|true|testagain
+T|false|test
+E|false|party|Oct 1 2001|Oct 2 2001

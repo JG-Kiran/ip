@@ -1,9 +1,10 @@
 package Command;
 
 import Exception.DukeException;
-import Task.Deadline;
+
 import Task.TaskItem;
 import Task.TaskList;
+import Task.Deadline;
 
 public class DeadlineCommand extends Command {
     private String description;

@@ -1,10 +1,10 @@
 package Command;
 
 import Exception.DukeException;
-import Task.Deadline;
-import Task.Event;
+
 import Task.TaskItem;
 import Task.TaskList;
+import Task.Event;
 
 public class EventCommand extends Command {
     private String description;

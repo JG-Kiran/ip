@@ -13,15 +13,6 @@ public class TaskList {
     private int size = 0;
 
     /**
-     * Returns the number of tasks in the list.
-     *
-     * @return size of the list
-     */
-    public int getSize() {
-        return size;
-    }
-
-    /**
      * Returns a read-only snapshot view of the tasks in insertion order.
      *
      * @return an unmodifiable list of tasks

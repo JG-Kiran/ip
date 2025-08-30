@@ -47,20 +47,26 @@ public class Storage {
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine().trim();
-                if (line.isEmpty()) continue;
+                if (line.isEmpty()) {
+                    continue;
+                }
                 String[] p = line.split("\\|");
                 String type = p[0];
                 boolean isDone = "1".equals(p[1]);
                 String desc = p[2];
 
                 switch (type) {
-                    case "T": list.add(new Todo(desc, isDone));
+                case "T":
+                    list.add(new Todo(desc, isDone));
                     break;
-                    case "D": list.add(new Deadline(desc, isDone, p[3]));
+                case "D":
+                    list.add(new Deadline(desc, isDone, p[3]));
                     break;
-                    case "E": list.add(new Event(desc, isDone, p[3], p[4]));
+                case "E":
+                    list.add(new Event(desc, isDone, p[3], p[4]));
                     break;
-                    default:  /* ignore unknown lines */
+                default:
+                    break;
                 }
             }
         } catch (Exception e) {

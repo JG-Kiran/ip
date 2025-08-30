@@ -6,7 +6,7 @@ import Task.TaskList;
 public class ByeCommand extends Command {
     @Override
     public boolean isExit() {
-        return true;                    // tells John.run() to break the loop
+        return true;
     }
 
     @Override

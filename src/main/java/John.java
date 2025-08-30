@@ -30,20 +30,20 @@ public class John {
      * displaying results until an exit command is issued.
      */
     public void run() {
-        ui.showWelcome();
+        Ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.showLine();
+                Ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks);
                 storage.save(tasks);
                 isExit = c.isExit();
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                Ui.showError(e.getMessage());
             } finally {
-                ui.showLine();
+                Ui.showLine();
             }
         }
     }

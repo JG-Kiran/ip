@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import Exception.DukeException;
+
 /**
  * Mutable collection of {@link TaskItem} with convenience operations used by commands,
  * such as add/remove/mark/unmark, indexed access, searching, and safe viewing.
@@ -79,5 +81,32 @@ public class TaskList {
         unmarked.markUndone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + unmarked);
+    }
+
+    /**
+     * Returns tasks whose names contain the given keyword (case-insensitive).
+     *
+     * @param keyword substring to match
+     * @throws DukeException if keyword is null or blank or if no matching
+     * keyword is found.
+     */
+    public void find(String keyword) throws DukeException {
+        if (keyword == null || keyword.isBlank()) {
+            throw new DukeException("Keyword cannot be empty.");
+        }
+        String q = keyword.toLowerCase();
+
+        TaskList temp = new TaskList();
+        for (TaskItem t : items) {
+            if (t.name.toLowerCase().contains(q)) {
+                temp.items.add(t);
+                temp.size = temp.items.size();
+            }
+        }
+
+        if (temp.items.isEmpty()) {
+            throw new DukeException("No matching tasks found for: " + keyword);
+        }
+        temp.list();
     }
 }

@@ -19,14 +19,14 @@ public class Ui {
      *
      * @param msg error text to show
      */
-    public void showError(String msg) {
+    public static void showError(String msg) {
         System.out.println("Error: " + msg);
     }
 
     /**
      * Prints the welcome banner and any initial help text.
      */
-    public void showWelcome() {
+    public static void showWelcome() {
         System.out.println("Hello! I'm John");
         System.out.println("How may I assist you?");
     }
@@ -34,7 +34,7 @@ public class Ui {
     /**
      * Prints a horizontal rule or divider line to separate sections.
      */
-    public void showLine() {
+    public static void showLine() {
         System.out.println("===================================================");
     }
 }

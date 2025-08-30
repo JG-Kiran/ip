@@ -5,6 +5,7 @@ import Command.ByeCommand;
 import Command.DeadlineCommand;
 import Command.DeleteCommand;
 import Command.EventCommand;
+import Command.FindCommand;
 import Command.ListCommand;
 import Command.MarkCommand;
 import Command.ToDoCommand;
@@ -34,7 +35,9 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "todo":
-            if (args.isBlank()) throw new DukeException("Usage: todo <description>");
+            if (args.isBlank()) {
+                throw new DukeException("Usage: todo <description>");
+            }
             return new ToDoCommand(args);
         case "deadline":
             String[] p = args.split("/by ", 2);
@@ -55,6 +58,12 @@ public class Parser {
             return new UnmarkCommand(parseIndex(args));
         case "delete":
             return new DeleteCommand(parseIndex(args));
+        case "find": {
+            if (args.isBlank()) {
+                throw new DukeException("Usage: find <keyword>");
+            }
+            return new FindCommand(args);
+        }
         case "bye":
             return new ByeCommand();
         default:

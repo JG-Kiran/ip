@@ -1,2 +1,1 @@
-T|false|bankai
-T|false|test
+T|true|homework

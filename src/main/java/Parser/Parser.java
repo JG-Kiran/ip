@@ -84,7 +84,7 @@ public class Parser {
             if (i <= 0) {
                 throw new NumberFormatException();
             }
-            return i;
+            return i - 1;
         } catch (Exception e) {
             throw new DukeException("Index must be a positive integer");
         }

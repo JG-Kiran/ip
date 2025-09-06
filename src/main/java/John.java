@@ -49,6 +49,11 @@ public class John {
         }
     }
 
+    /**
+     * Get the UI ouput for each input command as a String
+     * @param input from user to manipulate the task notebook
+     * @return string representing the response from the UI
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);

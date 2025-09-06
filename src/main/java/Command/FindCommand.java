@@ -2,6 +2,7 @@ package Command;
 
 import Exception.DukeException;
 import Task.TaskList;
+import UI.Ui;
 
 public class FindCommand extends Command{
     private final String keyword;
@@ -11,7 +12,8 @@ public class FindCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks) throws DukeException {
-        tasks.find(keyword);
+    public void execute(TaskList tasks, Ui ui) throws DukeException {
+        TaskList filteredList = tasks.find(keyword);
+        ui.showList(filteredList);
     }
 }

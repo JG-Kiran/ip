@@ -2,6 +2,9 @@ package Command;
 
 import Exception.DukeException;
 import Task.TaskList;
+import UI.GuiUi;
+import UI.Ui;
+import UI.GuiUi;
 
 public abstract class Command {
     /**
@@ -20,5 +23,11 @@ public abstract class Command {
      * @param tasks the current task list
      * @throws DukeException if execution fails (e.g., invalid index, I/O errors)
      */
-    public abstract void execute(TaskList tasks) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui) throws DukeException;
+
+    public String executeAndReturn(TaskList tasks) throws DukeException {
+        GuiUi tempUi = new GuiUi();
+        this.execute(tasks, tempUi);
+        return tempUi.getOutput();
+    }
 }

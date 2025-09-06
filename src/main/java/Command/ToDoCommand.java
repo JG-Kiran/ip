@@ -5,6 +5,7 @@ import Exception.DukeException;
 import Task.TaskItem;
 import Task.TaskList;
 import Task.Todo;
+import UI.Ui;
 
 public class ToDoCommand extends Command {
     private String description;
@@ -14,12 +15,13 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) throws DukeException {
+    public void execute(TaskList tasks, Ui ui) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
 
         TaskItem t = new Todo(description, false);
         tasks.add(t);
+        ui.showAdded(t, tasks.getSize());
     }
 }

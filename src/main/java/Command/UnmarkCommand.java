@@ -2,6 +2,7 @@ package Command;
 
 import Exception.DukeException;
 import Task.TaskList;
+import UI.Ui;
 
 public class UnmarkCommand extends Command {
     private int index;
@@ -11,7 +12,8 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) throws DukeException {
+    public void execute(TaskList tasks, Ui ui) throws DukeException {
         tasks.unmark(index);
+        ui.showUnmarked(tasks.getItem(index));
     }
 }

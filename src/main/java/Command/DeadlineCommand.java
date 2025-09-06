@@ -5,6 +5,7 @@ import Exception.DukeException;
 import Task.TaskItem;
 import Task.TaskList;
 import Task.Deadline;
+import UI.Ui;
 
 public class DeadlineCommand extends Command {
     private String description;
@@ -21,7 +22,7 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) throws DukeException {
+    public void execute(TaskList tasks, Ui ui) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The deadline description cannot be empty.");
         }
@@ -31,5 +32,6 @@ public class DeadlineCommand extends Command {
 
         TaskItem t = new Deadline(description, false, deadline);
         tasks.add(t);
+        ui.showAdded(t, tasks.getSize());
     }
 }

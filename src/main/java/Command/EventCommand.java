@@ -5,6 +5,7 @@ import Exception.DukeException;
 import Task.TaskItem;
 import Task.TaskList;
 import Task.Event;
+import UI.Ui;
 
 public class EventCommand extends Command {
     private String description;
@@ -23,7 +24,7 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks) throws DukeException {
+    public void execute(TaskList tasks, Ui ui) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The event description cannot be empty.");
         }
@@ -36,5 +37,6 @@ public class EventCommand extends Command {
 
         TaskItem t = new Event(description, false, from, to);
         tasks.add(t);
+        ui.showAdded(t, tasks.getSize());
     }
 }

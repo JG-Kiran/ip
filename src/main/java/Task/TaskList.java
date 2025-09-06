@@ -24,12 +24,20 @@ public class TaskList {
     }
 
     /**
-     * Prints all the tasks in a notepad-like format.
+     * Returns size of tasklist
+     * @return an integer number of items in the tasklist
      */
-    public void list() {
-        for (int i = 0; i < size; i++) {
-            System.out.println((i + 1) + ". " + items.get(i));
-        }
+    public int getSize() {
+        return items.size();
+    }
+
+    /**
+     * Returns a task at a given 0-index
+     * @param index position of item to be retrieved
+     * @return task at index position
+     */
+    public TaskItem getItem(int index) {
+        return items.get(index);
     }
 
     /**
@@ -39,10 +47,6 @@ public class TaskList {
      */
     public void add(TaskItem t) {
         items.add(t);
-        size = items.size();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + t);
-        System.out.println("Now you have " + size + " tasks in the list.");
     }
 
     /**
@@ -50,13 +54,8 @@ public class TaskList {
      *
      * @param index zero-based index of the task to remove
      */
-    public void remove(int index) {
-        TaskItem removedItem = items.remove(index);
-        size = items.size();
-
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + removedItem);
-        System.out.println("Now you have " + size + " tasks in the list.");
+    public TaskItem remove(int index) {
+        return items.remove(index);
     }
 
     /**
@@ -67,8 +66,6 @@ public class TaskList {
     public void mark(int index) {
         TaskItem marked = items.get(index);
         marked.markDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + marked);
     }
 
     /**
@@ -79,8 +76,6 @@ public class TaskList {
     public void unmark(int index) {
         TaskItem unmarked = items.get(index);
         unmarked.markUndone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + unmarked);
     }
 
     /**
@@ -90,7 +85,7 @@ public class TaskList {
      * @throws DukeException if keyword is null or blank or if no matching
      * keyword is found.
      */
-    public void find(String keyword) throws DukeException {
+    public TaskList find(String keyword) throws DukeException {
         if (keyword == null || keyword.isBlank()) {
             throw new DukeException("Keyword cannot be empty.");
         }
@@ -107,6 +102,7 @@ public class TaskList {
         if (temp.items.isEmpty()) {
             throw new DukeException("No matching tasks found for: " + keyword);
         }
-        temp.list();
+
+        return temp;
     }
 }

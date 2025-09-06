@@ -22,6 +22,7 @@ public class John {
         ui = new Ui();
         storage = new Storage();
         tasks = storage.load();
+        System.out.println("[John] tasks @" + System.identityHashCode(tasks) + " after load size=" + tasks.getSize());
     }
 
     /**
@@ -30,21 +31,32 @@ public class John {
      * displaying results until an exit command is issued.
      */
     public void run() {
-        Ui.showWelcome();
+        ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks);
+                c.execute(tasks, ui);
                 storage.save(tasks);
                 isExit = c.isExit();
             } catch (DukeException e) {
-                Ui.showError(e.getMessage());
+                ui.showError(e.getMessage());
             } finally {
                 Ui.showLine();
             }
+        }
+    }
+
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            String response = c.executeAndReturn(tasks);
+            storage.save(tasks);
+            return response;
+        } catch (DukeException e) {
+            return e.getMessage();
         }
     }
 

@@ -4,7 +4,6 @@ import Exception.DukeException;
 import Task.TaskList;
 import UI.GuiUi;
 import UI.Ui;
-import UI.GuiUi;
 
 public abstract class Command {
     /**

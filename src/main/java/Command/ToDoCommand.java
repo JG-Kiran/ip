@@ -16,6 +16,8 @@ public class ToDoCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui) throws DukeException {
+        assert tasks != null : "Command: tasks must not be null";
+        assert ui != null : "Command: ui must not be null";
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }

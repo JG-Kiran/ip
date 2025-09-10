@@ -13,6 +13,8 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui) throws DukeException {
+        assert tasks != null : "Command: tasks must not be null";
+        assert ui != null : "Command: ui must not be null";
         tasks.mark(index);
         ui.showMarked(tasks.getItem(index));
     }

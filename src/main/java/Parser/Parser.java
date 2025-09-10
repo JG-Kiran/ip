@@ -40,12 +40,15 @@ public class Parser {
             }
             return new ToDoCommand(args);
         case "deadline":
+            assert args.contains("/by") : "deadline must include /by";
             String[] p = args.split("/by ", 2);
             if (p.length < 2) {
                 throw new DukeException("Usage: deadline <desc> /by <yyyy-MM-dd>");
             }
             return new DeadlineCommand(args);
         case "event":
+            assert args.contains("/from") : "deadline must include /from";
+            assert args.contains("/to") : "deadline must include /to";
             String[] i = args.split("/from ", 2);
             String[] j = args.split("/to", 2);
             if (i.length < 2 || j.length < 2) {
@@ -76,17 +79,12 @@ public class Parser {
      *
      * @param s input line
      * @return an integer representing the index of the item
-     * @throws DukeException if the index is an invalid value
      */
-    private static int parseIndex(String s) throws DukeException {
-        try {
-            int i = Integer.parseInt(s.trim());
-            if (i <= 0) {
-                throw new NumberFormatException();
-            }
-            return i - 1;
-        } catch (Exception e) {
-            throw new DukeException("Index must be a positive integer");
-        }
+    private static int parseIndex(String s) {
+        assert s != null : "Parser: index token must not be null";
+        assert !s.trim().isEmpty() : "Parser: index token must not be blank";
+        int i = Integer.parseInt(s.trim());
+        assert i > 0 : "Parser: user index must be positive (1-based)";
+        return i - 1;
     }
 }

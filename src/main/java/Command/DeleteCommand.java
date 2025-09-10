@@ -14,6 +14,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui) throws DukeException {
+        assert tasks != null : "Command: tasks must not be null";
+        assert ui != null : "Command: ui must not be null";
         TaskItem removedTask = tasks.remove(index);
         ui.showDeleted(removedTask, tasks.getSize());
     }

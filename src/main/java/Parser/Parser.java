@@ -23,15 +23,11 @@ public class Parser {
      * @throws DukeException if the command is unknown or arguments are invalid
      */
     public static Command parse(String input) throws DukeException {
-        String trimmed = input.trim();
-        if (trimmed.isEmpty()) {
-            throw new DukeException("Empty command");
-        }
-        String[] parts = trimmed.split("\\s+", 2);
-        String cmd = parts[0].toLowerCase();
-        String args = parts.length > 1 ? parts[1] : "";
+        String trimmed = normalize(input);
+        String command = readKeyword(trimmed);
+        String args = readArgs(trimmed);
 
-        switch (cmd) {
+        switch (command) {
         case "list":
             return new ListCommand();
         case "todo":
@@ -70,8 +66,41 @@ public class Parser {
         case "bye":
             return new ByeCommand();
         default:
-            throw new DukeException("Unknown command: " + cmd);
+            throw new DukeException("Unknown command: " + command);
         }
+    }
+
+    /**
+     * Ensures that input string is valid
+     * @param input string containing command followed by relevant description
+     * @return trimmed input string
+     * @throws DukeException when input is invalid or empty string
+     */
+    private static String normalize(String input) throws DukeException {
+        if (input == null) throw new DukeException("Input cannot be null");
+        String s = input.trim();
+        if (s.isEmpty()) throw new DukeException("Empty command");
+        return s;
+    }
+
+    /**
+     * Retrieves command keyword from input
+     * @param trimmed input from user
+     * @return command keyword from input
+     */
+    private static String readKeyword(String trimmed) {
+        int sp = trimmed.indexOf(' ');
+        return (sp < 0) ? trimmed : trimmed.substring(0, sp);
+    }
+
+    /**
+     * Retrieves command arguments from input
+     * @param trimmed input from user
+     * @return command arguments from input
+     */
+    private static String readArgs(String trimmed) {
+        int sp = trimmed.indexOf(' ');
+        return (sp < 0) ? "" : trimmed.substring(sp + 1).trim();
     }
 
     /**
@@ -80,11 +109,17 @@ public class Parser {
      * @param s input line
      * @return an integer representing the index of the item
      */
-    private static int parseIndex(String s) {
+    private static int parseIndex(String s) throws DukeException {
         assert s != null : "Parser: index token must not be null";
         assert !s.trim().isEmpty() : "Parser: index token must not be blank";
-        int i = Integer.parseInt(s.trim());
-        assert i > 0 : "Parser: user index must be positive (1-based)";
-        return i - 1;
+        try {
+            int i = Integer.parseInt(s.trim());
+            if (i <= 0) {
+                throw new DukeException("Index must be positive number");
+            }
+            return i - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Index must be a valid number.");
+        }
     }
 }

@@ -1,5 +1,8 @@
 package Task;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 /**
  * Base abstraction for a user task. Stores a name/description and completion state,
  * and defines the common rendering and serialization contracts used by the app.
@@ -73,6 +76,14 @@ public abstract class TaskItem {
     public String toString() {
         String status = isDone ? "[X] " : "[ ] ";
         return typeTag() + status + name + extraDetail();
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Optional<LocalDate> getDate() {
+        return Optional.empty();
     }
 }
 

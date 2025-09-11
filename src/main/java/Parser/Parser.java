@@ -8,6 +8,7 @@ import Command.EventCommand;
 import Command.FindCommand;
 import Command.ListCommand;
 import Command.MarkCommand;
+import Command.SortCommand;
 import Command.ToDoCommand;
 import Command.UnmarkCommand;
 
@@ -62,6 +63,10 @@ public class Parser {
                 throw new DukeException("Usage: find <keyword>");
             }
             return new FindCommand(args);
+        }
+        case "sort": {
+            String mode = args.isBlank() ? "name" : args;
+            return new SortCommand(mode);
         }
         case "bye":
             return new ByeCommand();

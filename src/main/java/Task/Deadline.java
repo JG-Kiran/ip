@@ -2,6 +2,7 @@ package Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class Deadline extends TaskItem {
     private final LocalDate deadline;
@@ -33,5 +34,10 @@ public class Deadline extends TaskItem {
     public String toSaveString() {
         assert name.indexOf('|') < 0 : "Save: name must not contain '|'";
         return "D|" + isDone + "|" + name + "|" + deadline;
+    }
+
+    @Override
+    public Optional<LocalDate> getDate() {
+        return Optional.of(deadline);
     }
 }

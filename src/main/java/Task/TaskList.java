@@ -1,8 +1,7 @@
 package Task;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 import Exception.DukeException;
 
@@ -109,5 +108,27 @@ public class TaskList {
         }
 
         return temp;
+    }
+
+    private static class DateComparator implements Comparator<TaskItem> {
+        @Override
+        public int compare(TaskItem a, TaskItem b) {
+            int cmp = Comparator.comparing(
+                    (TaskItem t) -> t.getDate().orElse(null),
+                    Comparator.nullsLast(Comparator.naturalOrder())
+            ).compare(a, b);
+
+            if (cmp != 0) {
+                return cmp;
+            }
+
+            // Tie-breaker: fall back to name
+            return a.name.compareToIgnoreCase(b.name);
+        }
+    }
+
+    /** Public method to sort by date */
+    public void sortByDate() {
+        items.sort(new DateComparator());
     }
 }

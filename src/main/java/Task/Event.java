@@ -2,6 +2,7 @@ package Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class Event extends TaskItem {
     private final LocalDate from;
@@ -35,5 +36,10 @@ public class Event extends TaskItem {
     @Override public String toSaveString() {
         assert name.indexOf('|') < 0 : "Save: name must not contain '|'";
         return "E|" + isDone + "|" + name + "|" + from + "|" + to;
+    }
+
+    @Override
+    public Optional<LocalDate> getDate() {
+        return Optional.of(from);
     }
 }

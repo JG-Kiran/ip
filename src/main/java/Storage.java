@@ -1,3 +1,5 @@
+import Exception.DukeException;
+
 import Task.Deadline;
 import Task.Event;
 import Task.TaskItem;
@@ -19,15 +21,9 @@ public class Storage {
 
     /**
      * Constructs a Storage bound to the given file path.
+     * creating the file and directory if they are missing.
      */
     public Storage() {
-        ensureFileReady();
-    }
-
-    /**
-     * Ensures the parent directory and file exist, creating them when necessary.
-     */
-    private void ensureFileReady() {
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
             parent.mkdir();
@@ -54,33 +50,11 @@ public class Storage {
                 if (line.isEmpty()) {
                     continue;
                 }
-                String[] p = line.split("\\|");
-                String type = p[0];
-                boolean isDone = "1".equals(p[1]);
-                String desc = p[2];
-
-                switch (type) {
-                case "T":
-                    assert p.length == 3 : "Storage T expects 3 fields";
-                    list.add(new Todo(desc, isDone));
-                    break;
-                case "D":
-                    assert p.length == 4 : "Storage D expects 4 fields";
-                    list.add(new Deadline(desc, isDone, p[3]));
-                    break;
-                case "E":
-                    assert p.length == 5 : "Storage E expects 5 fields";
-                    list.add(new Event(desc, isDone, p[3], p[4]));
-                    break;
-                default:
-                    assert false : "Storage: unknown record type " + type;
-                    break;
-                }
+                list.add(deserialize(line));
             }
         } catch (Exception e) {
             System.out.println("[Warn] Load failed: " + e.getMessage());
         }
-        assert list != null : "Storage.load must return non-null list";
         return list;
     }
 
@@ -99,5 +73,33 @@ public class Storage {
             System.out.println("[Warn] Save failed: " + e.getMessage());
         }
         assert file.exists() : "Storage.save: file should exist post-save";
+    }
+
+    /**
+     * Converted the saved string to corresponding task item
+     * @param line saved line in data file
+     * @return task item corresponding to line in data file
+     * @throws DukeException if saved item is invalid or in unknown format
+     */
+    private TaskItem deserialize(String line) throws DukeException {
+        String[] parts = line.split("\\|");
+        assert parts.length >= 3 : "Corrupt load: too few fields";
+        String type = parts[0];
+        boolean isDone = "1".equals(parts[1]);
+        String desc = parts[2];
+
+        switch (type) {
+        case "T":
+            assert parts.length == 3 : "Storage T expects 3 fields";
+            return new Todo(desc, isDone);
+        case "D":
+            assert parts.length == 4 : "Storage D expects 4 fields";
+            return new Deadline(desc, isDone, parts[3]);
+        case "E":
+            assert parts.length == 5 : "Storage E expects 5 fields";
+            return new Event(desc, isDone, parts[3], parts[4]);
+        default:
+            throw new DukeException("Unknown type: " + type);
+        }
     }
 }

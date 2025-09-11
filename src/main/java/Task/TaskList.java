@@ -37,6 +37,7 @@ public class TaskList {
      * @return task at index position
      */
     public TaskItem getItem(int index) {
+        assert index >= 0 && index < size : "TaskList.get: index out of bounds " + index;
         return items.get(index);
     }
 
@@ -46,7 +47,9 @@ public class TaskList {
      * @param t task to add
      */
     public void add(TaskItem t) {
+        assert t != null : "TaskList.add: cannot add null task";
         items.add(t);
+        size = getSize();
     }
 
     /**
@@ -55,6 +58,8 @@ public class TaskList {
      * @param index zero-based index of the task to remove
      */
     public TaskItem remove(int index) {
+        assert index >= 0 && index < size : "TaskList.remove: index out of bounds " + index;
+        size = getSize();
         return items.remove(index);
     }
 

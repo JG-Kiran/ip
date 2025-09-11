@@ -25,8 +25,11 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, Ui ui) throws DukeException;
 
     public String executeAndReturn(TaskList tasks) throws DukeException {
+        assert tasks != null : "Command: tasks must not be null";
         GuiUi tempUi = new GuiUi();
         this.execute(tasks, tempUi);
-        return tempUi.getOutput();
+        String out = tempUi.getOutput();
+        assert out != null : "Command: execute must produce non-null output";
+        return out;
     }
 }

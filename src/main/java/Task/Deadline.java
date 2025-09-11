@@ -8,6 +8,7 @@ public class Deadline extends TaskItem {
 
     public Deadline(String name, boolean isDone, String by) {
         super(name);
+        assert by != null && !by.trim().isEmpty() : "Deadline: /by must not be empty";
         this.deadline = LocalDate.parse(by);
         if (isDone) {
             super.markDone();
@@ -30,6 +31,7 @@ public class Deadline extends TaskItem {
 
     @Override
     public String toSaveString() {
+        assert name.indexOf('|') < 0 : "Save: name must not contain '|'";
         return "D|" + isDone + "|" + name + "|" + deadline;
     }
 }

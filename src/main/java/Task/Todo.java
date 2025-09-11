@@ -16,6 +16,7 @@ public class Todo extends TaskItem {
 
     @Override
     public String toSaveString() {
+        assert name.indexOf('|') < 0 : "Save: name must not contain '|'";
         return "T|" + isDone + "|" + name;
     }
 }

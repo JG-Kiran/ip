@@ -9,6 +9,8 @@ public class Event extends TaskItem {
 
     public Event(String name, boolean isDone, String from, String to) {
         super(name);
+        assert from != null && !from.trim().isEmpty() : "Event: /from missing";
+        assert to != null && !to.trim().isEmpty()   : "Event: /to missing";
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
         if (isDone) {
@@ -31,6 +33,7 @@ public class Event extends TaskItem {
     }
 
     @Override public String toSaveString() {
+        assert name.indexOf('|') < 0 : "Save: name must not contain '|'";
         return "E|" + isDone + "|" + name + "|" + from + "|" + to;
     }
 }

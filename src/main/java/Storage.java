@@ -61,21 +61,26 @@ public class Storage {
 
                 switch (type) {
                 case "T":
+                    assert p.length == 3 : "Storage T expects 3 fields";
                     list.add(new Todo(desc, isDone));
                     break;
                 case "D":
+                    assert p.length == 4 : "Storage D expects 4 fields";
                     list.add(new Deadline(desc, isDone, p[3]));
                     break;
                 case "E":
+                    assert p.length == 5 : "Storage E expects 5 fields";
                     list.add(new Event(desc, isDone, p[3], p[4]));
                     break;
                 default:
+                    assert false : "Storage: unknown record type " + type;
                     break;
                 }
             }
         } catch (Exception e) {
             System.out.println("[Warn] Load failed: " + e.getMessage());
         }
+        assert list != null : "Storage.load must return non-null list";
         return list;
     }
 
@@ -93,5 +98,6 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("[Warn] Save failed: " + e.getMessage());
         }
+        assert file.exists() : "Storage.save: file should exist post-save";
     }
 }

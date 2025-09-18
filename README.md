@@ -1,6 +1,6 @@
 # John — your friendly task assistant
 
-![Ui](src/main/resources/images/DaJohn.png)
+![Ui](docs/Ui.png)
 
 ## Quick Start
 1. Ensure **Java 17** is installed (`java -version`).

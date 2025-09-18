@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Mutable collection of {@link TaskItem} with convenience operations used by commands,
+ * Mutable collection of task items with convenience operations used by commands,
  * such as add/remove/mark/unmark, indexed access, searching, and safe viewing.
  */
 public class TaskList {
@@ -18,24 +18,24 @@ public class TaskList {
     /**
      * Returns a read-only snapshot view of the tasks in insertion order.
      *
-     * @return an unmodifiable list of tasks
+     * @return Unmodifiable list of tasks.
      */
     public List<TaskItem> view() {
         return Collections.unmodifiableList(items);
     }
 
     /**
-     * Returns size of tasklist
-     * @return an integer number of items in the tasklist
+     * Returns integer size of tasklist.
      */
     public int getSize() {
         return items.size();
     }
 
     /**
-     * Returns a task at a given 0-index
-     * @param index position of item to be retrieved
-     * @return task at index position
+     * Returns a task at a given 0-index.
+     *
+     * @param index Position of item to be retrieved.
+     * @return Task at index position.
      */
     public TaskItem getItem(int index) {
         assert index >= 0 && index < size : "TaskList.get: index out of bounds " + index;
@@ -45,7 +45,7 @@ public class TaskList {
     /**
      * Adds a task to the end of the list.
      *
-     * @param t task to add
+     * @param t Task to add.
      */
     public void add(TaskItem t) {
         assert t != null : "TaskList.add: cannot add null task";
@@ -56,7 +56,7 @@ public class TaskList {
     /**
      * Removes the task at the given 0-based index.
      *
-     * @param index zero-based index of the task to remove
+     * @param index Zero-based index of the task to remove.
      */
     public TaskItem remove(int index) {
         assert index >= 0 && index < size : "TaskList.remove: index out of bounds " + index;
@@ -67,7 +67,7 @@ public class TaskList {
     /**
      * Marks the task at the given index as done.
      *
-     * @param index zero-based index of the task to mark
+     * @param index Zero-based index of the task to mark.
      */
     public void mark(int index) {
         TaskItem marked = items.get(index);
@@ -77,7 +77,7 @@ public class TaskList {
     /**
      * Unmarks the task at the given index as not done.
      *
-     * @param index zero-based index of the task to unmark
+     * @param index Zero-based index of the task to unmark.
      */
     public void unmark(int index) {
         TaskItem unmarked = items.get(index);
@@ -87,8 +87,8 @@ public class TaskList {
     /**
      * Returns tasks whose names contain the given keyword (case-insensitive).
      *
-     * @param keyword substring to match
-     * @throws JohnException if keyword is null or blank or if no matching
+     * @param keyword Substring to match.
+     * @throws JohnException If keyword is null or blank or if no matching
      * keyword is found.
      */
     public TaskList find(String keyword) throws JohnException {
@@ -133,7 +133,7 @@ public class TaskList {
     }
 
     /**
-     * Sort tasks by date, then by name.
+     * Sorts tasks by date, then by name.
      */
     public void sortByDate() {
         items.sort(new DateComparator());

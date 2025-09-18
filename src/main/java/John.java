@@ -51,9 +51,10 @@ public class John {
     }
 
     /**
-     * Get the UI ouput for each input command as a String
-     * @param input from user to manipulate the task notebook
-     * @return string representing the response from the UI
+     * Get the UI output for each input command as a String.
+     *
+     * @param input Input from user to manipulate the task list.
+     * @return String representing the response from the UI.
      */
     public String getResponse(String input) {
         try {
@@ -69,7 +70,7 @@ public class John {
     /**
      * Launches John from the command line.
      *
-     * @param args optional CLI arguments (ignored by default)
+     * @param args Optional CLI arguments (ignored by default).
      */
     public static void main(String[] args) {
         new John().run();

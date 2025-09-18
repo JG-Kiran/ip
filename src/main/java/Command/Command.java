@@ -5,25 +5,33 @@ import Task.TaskList;
 import UI.GuiUi;
 import UI.Ui;
 
+/**
+ * Overall command class to be inherited to execute specific commands.
+ */
 public abstract class Command {
     /**
-     * Indicates whether executing this command should terminate the app.
-     * Defaults to {@code false}; exit-like commands override to return {@code true}.
-     *
-     * @return {@code true} if the app should exit after execution; {@code false} otherwise
+     * Returns false to indicate that the application should not exit.
      */
     public boolean isExit() {
         return false;
     }
 
     /**
-     * Executes this command against the application state.
+     * Executes the command against the application state.
      *
-     * @param tasks the current task list
-     * @throws JohnException if execution fails (e.g., invalid index, I/O errors)
+     * @param tasks Current task list.
+     * @param ui UI used to present feedback to the user.
+     * @throws JohnException If execution fails.
      */
     public abstract void execute(TaskList tasks, Ui ui) throws JohnException;
 
+    /**
+     * Executes the command and returns the output from the GuiUI.
+     *
+     * @param tasks Current task list.
+     * @return Output string from Gui.
+     * @throws JohnException When user gives invalid input for the command.
+     */
     public String executeAndReturn(TaskList tasks) throws JohnException {
         assert tasks != null : "Command: tasks must not be null";
         GuiUi tempUi = new GuiUi();

@@ -14,14 +14,17 @@ import Command.UnmarkCommand;
 
 import JohnException.JohnException;
 
+/**
+ * Parses all inputs from user into the application
+ * and calls the respective commands to handle them.
+ */
 public class Parser {
-
     /**
-     * Parses a raw user command line and creates an appropriate {@link Command}.
+     * Parses raw user input and creates an appropriate command.
      *
-     * @param input the entire line typed by the user
-     * @return a command object ready to execute
-     * @throws JohnException if the command is unknown or arguments are invalid
+     * @param input The entire line typed by the user.
+     * @return Command object ready to execute.
+     * @throws JohnException If the command is unknown or arguments are invalid.
      */
     public static Command parse(String input) throws JohnException {
         String trimmed = normalize(input);
@@ -72,9 +75,10 @@ public class Parser {
     }
 
     /**
-     * Ensures that input string is valid
-     * @param input string containing command followed by relevant description
-     * @return trimmed input string
+     * Ensures that input string is valid and trims it.
+     *
+     * @param input String containing command followed by relevant description.
+     * @return Trimmed input string.
      */
     private static String normalize(String input) throws JohnException {
         if (input.trim().isEmpty()) {
@@ -85,9 +89,10 @@ public class Parser {
     }
 
     /**
-     * Retrieves command keyword from input
-     * @param trimmed input from user
-     * @return command keyword from input
+     * Retrieves command keyword from input.
+     *
+     * @param trimmed Input from user.
+     * @return Command keyword from input.
      */
     private static String readKeyword(String trimmed) {
         int sp = trimmed.indexOf(' ');
@@ -95,9 +100,10 @@ public class Parser {
     }
 
     /**
-     * Retrieves command arguments from input
-     * @param trimmed input from user
-     * @return command arguments from input
+     * Retrieves command arguments from input.
+     *
+     * @param trimmed Input from user.
+     * @return Command arguments from input.
      */
     private static String readArgs(String trimmed) {
         int sp = trimmed.indexOf(' ');
@@ -105,10 +111,10 @@ public class Parser {
     }
 
     /**
-     * Retrieves any integers within the given string
+     * Retrieves any integers within the given string.
      *
-     * @param s input line
-     * @return an integer representing the index of the item
+     * @param s Input line.
+     * @return Integer representing the index of the item.
      */
     private static int parseIndex(String s) throws JohnException {
         assert !s.trim().isEmpty() : "Parser: index token must not be blank";

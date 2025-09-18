@@ -8,6 +8,9 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.List;
 
+/**
+ * Parses all date inputs from user as String and converts them to LocalDate.
+ */
 public class DateParser {
 
     // === Storage (save/load) ===
@@ -28,6 +31,13 @@ public class DateParser {
             DateTimeFormatter.ofPattern("MMMM d uuuu").withResolverStyle(ResolverStyle.STRICT) // September 18 2025
     );
 
+    /**
+     * Parses input date from the user to LocalDate.
+     * Matches input to the INPUT_FORMATS list format.
+     *
+     * @param raw Date from the user.
+     * @throws JohnException If input date is empty or invalid.
+     */
     public static LocalDate parseUser(String raw) throws JohnException {
         if (raw == null || raw.trim().isEmpty()) {
             throw new JohnException("Date input cannot be empty.");
@@ -54,20 +64,36 @@ public class DateParser {
                 "Unrecognized date format. Supported: yyyy-MM-dd, dd/MM/yyyy, d-M-yyyy, MMM d yyyy, MMMM d yyyy.");
     }
 
-    /** Parse from storage (single strict format only). */
+    /**
+     * Parses dates from stored data file and converts it to LocalDate.
+     *
+     * @param raw Date stored as string in data file.
+     * @throws JohnException If date is saved incorrectly.
+     */
     public static LocalDate parseStorage(String raw) throws JohnException {
         try {
             return LocalDate.parse(raw, STORAGE);
         } catch (DateTimeParseException e) {
-            // This indicates corrupted save data or a version mismatch
             throw new JohnException("Corrupted save date: " + raw);
         }
     }
 
+    /**
+     * Formats date for displaying to user on UI.
+     *
+     * @param d Date to be formatted.
+     * @return Date formatted by DISPLAY format style.
+     */
     public static String formatForDisplay(LocalDate d) {
         return d.format(DISPLAY);
     }
 
+    /**
+     * Formats date to be stored in data file.
+     *
+     * @param d Date to be formatted.
+     * @return Date formatted by STORAGE format style.
+     */
     public static String formatForStorage(LocalDate d) {
         return d.format(STORAGE);
     }

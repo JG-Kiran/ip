@@ -4,13 +4,29 @@ import JohnException.JohnException;
 import Task.TaskList;
 import UI.Ui;
 
+/**
+ * Command to unmark completed tasks.
+ */
 public class UnmarkCommand extends Command {
     private int index;
 
+    /**
+     * Initialises unmark command.
+     *
+     * @param index Zero-based index of the task to delete.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }
 
+    /**
+     * Executes command by validating input index, finding the task at the index,
+     * and marking it as not completed.
+     *
+     * @param tasks Current task list.
+     * @param ui UI used to present feedback to the user.
+     * @throws JohnException If current list is empty or index is out of range.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui) throws JohnException {
         assert tasks != null : "Command: tasks must not be null";

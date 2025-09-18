@@ -15,7 +15,7 @@
 ## Usage (Command Summary)
 - `todo TASK`
 - `deadline TASK /by DATE`
-- `event TASK /at DATE`
+- `event TASK /from DATE /to DATE`
 - `list` | `sort`
 - `find KEYWORD` | `delete INDEX`
 - `mark INDEX` | `unmark INDEX`

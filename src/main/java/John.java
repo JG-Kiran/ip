@@ -1,5 +1,5 @@
 import Command.Command;
-import Exception.DukeException;
+import JohnException.JohnException;
 import Parser.Parser;
 import Task.TaskList;
 import UI.Ui;
@@ -33,6 +33,7 @@ public class John {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
+
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -41,7 +42,7 @@ public class John {
                 c.execute(tasks, ui);
                 storage.save(tasks);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (JohnException e) {
                 ui.showError(e.getMessage());
             } finally {
                 Ui.showLine();
@@ -60,7 +61,7 @@ public class John {
             String response = c.executeAndReturn(tasks);
             storage.save(tasks);
             return response;
-        } catch (DukeException e) {
+        } catch (JohnException e) {
             return e.getMessage();
         }
     }

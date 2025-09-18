@@ -12,7 +12,7 @@ import Command.SortCommand;
 import Command.ToDoCommand;
 import Command.UnmarkCommand;
 
-import Exception.DukeException;
+import JohnException.JohnException;
 
 public class Parser {
 
@@ -21,9 +21,9 @@ public class Parser {
      *
      * @param input the entire line typed by the user
      * @return a command object ready to execute
-     * @throws DukeException if the command is unknown or arguments are invalid
+     * @throws JohnException if the command is unknown or arguments are invalid
      */
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String input) throws JohnException {
         String trimmed = normalize(input);
         String command = readKeyword(trimmed);
         String args = readArgs(trimmed);
@@ -33,23 +33,20 @@ public class Parser {
             return new ListCommand();
         case "todo":
             if (args.isBlank()) {
-                throw new DukeException("Usage: todo <description>");
+                throw new JohnException("Usage: todo <description>");
             }
             return new ToDoCommand(args);
         case "deadline":
-            assert args.contains("/by") : "deadline must include /by";
             String[] p = args.split("/by ", 2);
             if (p.length < 2) {
-                throw new DukeException("Usage: deadline <desc> /by <yyyy-MM-dd>");
+                throw new JohnException("Usage: deadline <desc> /by <yyyy-MM-dd>");
             }
             return new DeadlineCommand(args);
         case "event":
-            assert args.contains("/from") : "deadline must include /from";
-            assert args.contains("/to") : "deadline must include /to";
             String[] i = args.split("/from ", 2);
             String[] j = args.split("/to", 2);
             if (i.length < 2 || j.length < 2) {
-                throw new DukeException("Usage: event <desc> /from <yyyy-MM-dd> /to <yyyy-MM-dd>");
+                throw new JohnException("Usage: event <desc> /from <yyyy-MM-dd> /to <yyyy-MM-dd>");
             }
             return new EventCommand(args);
         case "mark":
@@ -60,18 +57,17 @@ public class Parser {
             return new DeleteCommand(parseIndex(args));
         case "find": {
             if (args.isBlank()) {
-                throw new DukeException("Usage: find <keyword>");
+                throw new JohnException("Usage: find <keyword>");
             }
             return new FindCommand(args);
         }
         case "sort": {
-            String mode = args.isBlank() ? "name" : args;
-            return new SortCommand(mode);
+            return new SortCommand();
         }
         case "bye":
             return new ByeCommand();
         default:
-            throw new DukeException("Unknown command: " + command);
+            throw new JohnException("Unknown command: " + command);
         }
     }
 
@@ -79,13 +75,13 @@ public class Parser {
      * Ensures that input string is valid
      * @param input string containing command followed by relevant description
      * @return trimmed input string
-     * @throws DukeException when input is invalid or empty string
      */
-    private static String normalize(String input) throws DukeException {
-        if (input == null) throw new DukeException("Input cannot be null");
-        String s = input.trim();
-        if (s.isEmpty()) throw new DukeException("Empty command");
-        return s;
+    private static String normalize(String input) throws JohnException {
+        if (input.trim().isEmpty()) {
+            throw new JohnException("Input cannot be empty.");
+        }
+        assert !input.trim().isEmpty(): "Input cannot be empty"; // For GUI
+        return input.trim();
     }
 
     /**
@@ -114,17 +110,16 @@ public class Parser {
      * @param s input line
      * @return an integer representing the index of the item
      */
-    private static int parseIndex(String s) throws DukeException {
-        assert s != null : "Parser: index token must not be null";
+    private static int parseIndex(String s) throws JohnException {
         assert !s.trim().isEmpty() : "Parser: index token must not be blank";
         try {
             int i = Integer.parseInt(s.trim());
             if (i <= 0) {
-                throw new DukeException("Index must be positive number");
+                throw new JohnException("Index must be positive number");
             }
             return i - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Index must be a valid number.");
+            throw new JohnException("Index must be a valid number.");
         }
     }
 }

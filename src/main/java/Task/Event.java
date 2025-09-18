@@ -1,19 +1,21 @@
 package Task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
+import static Parser.DateParser.formatForDisplay;
+import static Parser.DateParser.formatForStorage;
 
 public class Event extends TaskItem {
     private final LocalDate from;
     private final LocalDate to;
 
-    public Event(String name, boolean isDone, String from, String to) {
+    public Event(String name, boolean isDone, LocalDate from, LocalDate to) {
         super(name);
-        assert from != null && !from.trim().isEmpty() : "Event: /from missing";
-        assert to != null && !to.trim().isEmpty()   : "Event: /to missing";
-        this.from = LocalDate.parse(from);
-        this.to = LocalDate.parse(to);
+        assert from != null : "Event: /from missing";
+        assert to != null : "Event: /to missing";
+        this.from = from;
+        this.to = to;
         if (isDone) {
             markDone();
         }
@@ -24,18 +26,14 @@ public class Event extends TaskItem {
         return "[E]";
     }
 
-    private String dateToString(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-    }
-
     @Override
     protected String extraDetail() {
-        return " (from: " + dateToString(from) + " to: " + dateToString(to) + ")";
+        return " (from: " + formatForDisplay(from) + " to: " + formatForDisplay(to) + ")";
     }
 
     @Override public String toSaveString() {
         assert name.indexOf('|') < 0 : "Save: name must not contain '|'";
-        return "E|" + isDone + "|" + name + "|" + from + "|" + to;
+        return "E|" + isDone + "|" + name + "|" + formatForStorage(from) + "|" + formatForStorage(to);
     }
 
     @Override

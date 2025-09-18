@@ -1,12 +1,12 @@
-package Exception;
+package JohnException;
 
-public class DukeException extends Exception {
+public class JohnException extends Exception {
     /**
-     * Creates a {@code DukeException} with the given message.
+     * Creates a JohnException with the given message.
      *
      * @param message human-readable error description
      */
-    public DukeException(String message) {
+    public JohnException(String message) {
         super(message);
     }
 }

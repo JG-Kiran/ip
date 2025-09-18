@@ -1,7 +1,0 @@
-E|false|test|2001-01-01|2002-01-01
-D|false|ui|2001-02-02
-D|false|homework|2002-02-03
-T|false|2323
-T|false|joust
-T|false|test
-T|false|test

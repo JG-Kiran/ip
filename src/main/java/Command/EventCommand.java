@@ -1,20 +1,23 @@
 package Command;
 
-import Exception.DukeException;
+import JohnException.JohnException;
 
+import Parser.DateParser;
 import Task.TaskItem;
 import Task.TaskList;
 import Task.Event;
 import UI.Ui;
+
+import java.time.LocalDate;
 
 public class EventCommand extends Command {
     private String description;
     private String from;
     private String to;
 
-    public EventCommand(String content) throws DukeException {
+    public EventCommand(String content) throws JohnException {
         if (!content.contains("/from") || !content.contains("/to") || content.indexOf("/from") > content.indexOf("/to")) {
-            throw new DukeException("☹ OOPS!!! The description of an event must have '/from' then '/to'.");
+            throw new JohnException("☹ OOPS!!! The description of an event must have '/from' then '/to'.");
         }
         String[] part1 = content.split("/from", 2);
         this.description = part1[0].trim();
@@ -24,20 +27,16 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws DukeException {
+    public void execute(TaskList tasks, Ui ui) throws JohnException {
         assert tasks != null : "Command: tasks must not be null";
         assert ui != null : "Command: ui must not be null";
         if (description.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The event description cannot be empty.");
+            throw new JohnException("The event description cannot be empty.");
         }
-        if (from.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The event start datetime cannot be empty.");
-        }
-        if (to.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The event end datetime cannot be empty.");
-        }
+        LocalDate fromDate = DateParser.parseUser(from);
+        LocalDate toDate = DateParser.parseUser(to);
 
-        TaskItem t = new Event(description, false, from, to);
+        TaskItem t = new Event(description, false, fromDate, toDate);
         tasks.add(t);
         ui.showAdded(t, tasks.getSize());
     }

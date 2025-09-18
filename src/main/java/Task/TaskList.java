@@ -1,9 +1,11 @@
 package Task;
 
-import java.time.LocalDate;
-import java.util.*;
+import JohnException.JohnException;
 
-import Exception.DukeException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Mutable collection of {@link TaskItem} with convenience operations used by commands,
@@ -86,12 +88,12 @@ public class TaskList {
      * Returns tasks whose names contain the given keyword (case-insensitive).
      *
      * @param keyword substring to match
-     * @throws DukeException if keyword is null or blank or if no matching
+     * @throws JohnException if keyword is null or blank or if no matching
      * keyword is found.
      */
-    public TaskList find(String keyword) throws DukeException {
+    public TaskList find(String keyword) throws JohnException {
         if (keyword == null || keyword.isBlank()) {
-            throw new DukeException("Keyword cannot be empty.");
+            throw new JohnException("Keyword cannot be empty.");
         }
         String q = keyword.toLowerCase();
 
@@ -104,12 +106,15 @@ public class TaskList {
         }
 
         if (temp.items.isEmpty()) {
-            throw new DukeException("No matching tasks found for: " + keyword);
+            throw new JohnException("No matching tasks found for: " + keyword);
         }
 
         return temp;
     }
 
+    /**
+     * Comparator for sorting method sortByDate().
+     */
     private static class DateComparator implements Comparator<TaskItem> {
         @Override
         public int compare(TaskItem a, TaskItem b) {
@@ -127,7 +132,9 @@ public class TaskList {
         }
     }
 
-    /** Public method to sort by date */
+    /**
+     * Sort tasks by date, then by name.
+     */
     public void sortByDate() {
         items.sort(new DateComparator());
     }

@@ -22,7 +22,6 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            // stage.setMaxWidth(417);
             fxmlLoader.<MainWindow>getController().setJohn(john);  // inject the John instance
             stage.show();
         } catch (IOException e) {

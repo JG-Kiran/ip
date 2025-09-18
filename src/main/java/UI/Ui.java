@@ -6,7 +6,7 @@ import Task.TaskItem;
 import java.util.Scanner;
 
 public class Ui {
-    private final Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     /**
      * Reads a line of user input from the input stream.
@@ -22,9 +22,9 @@ public class Ui {
      *
      * @param msg error text to show
      */
-    public void showError(String msg) {
-        System.out.println("Error: " + msg);
-    }
+        public void showError(String msg) {
+            System.out.println(msg + "\nPlease try again.");
+        }
 
     /**
      * Prints the welcome banner and any initial help text.
@@ -50,7 +50,7 @@ public class Ui {
     public void showAdded(TaskItem task, int size) {
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + size + " tasks in this list.");
+        System.out.println("Now you have " + size + " tasks in this list");
     }
 
     /**
@@ -94,7 +94,7 @@ public class Ui {
     public void showDeleted(TaskItem task, int size) {
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
+        System.out.println("Now you have " + size + " tasks in the list");
     }
 
     /**

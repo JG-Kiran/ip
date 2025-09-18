@@ -1,4 +1,6 @@
-import Exception.DukeException;
+import JohnException.JohnException;
+
+import Parser.DateParser;
 
 import Task.Deadline;
 import Task.Event;
@@ -9,6 +11,7 @@ import Task.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -79,9 +82,9 @@ public class Storage {
      * Converted the saved string to corresponding task item
      * @param line saved line in data file
      * @return task item corresponding to line in data file
-     * @throws DukeException if saved item is invalid or in unknown format
+     * @throws JohnException if saved item is invalid or in unknown format
      */
-    private TaskItem deserialize(String line) throws DukeException {
+    private TaskItem deserialize(String line) throws JohnException {
         String[] parts = line.split("\\|");
         assert parts.length >= 3 : "Corrupt load: too few fields";
         String type = parts[0];
@@ -94,12 +97,15 @@ public class Storage {
             return new Todo(desc, isDone);
         case "D":
             assert parts.length == 4 : "Storage D expects 4 fields";
-            return new Deadline(desc, isDone, parts[3]);
+            LocalDate by = DateParser.parseStorage(parts[3]);
+            return new Deadline(desc, isDone, by);
         case "E":
             assert parts.length == 5 : "Storage E expects 5 fields";
-            return new Event(desc, isDone, parts[3], parts[4]);
+            LocalDate from = DateParser.parseStorage(parts[3]);
+            LocalDate to   = DateParser.parseStorage(parts[4]);
+            return new Event(desc, isDone, from, to);
         default:
-            throw new DukeException("Unknown type: " + type);
+            throw new JohnException("Unknown type: " + type);
         }
     }
 }

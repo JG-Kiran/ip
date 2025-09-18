@@ -1,6 +1,6 @@
 package Command;
 
-import Exception.DukeException;
+import JohnException.JohnException;
 import Task.TaskList;
 import UI.GuiUi;
 import UI.Ui;
@@ -20,11 +20,11 @@ public abstract class Command {
      * Executes this command against the application state.
      *
      * @param tasks the current task list
-     * @throws DukeException if execution fails (e.g., invalid index, I/O errors)
+     * @throws JohnException if execution fails (e.g., invalid index, I/O errors)
      */
-    public abstract void execute(TaskList tasks, Ui ui) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui) throws JohnException;
 
-    public String executeAndReturn(TaskList tasks) throws DukeException {
+    public String executeAndReturn(TaskList tasks) throws JohnException {
         assert tasks != null : "Command: tasks must not be null";
         GuiUi tempUi = new GuiUi();
         this.execute(tasks, tempUi);

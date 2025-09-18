@@ -1,6 +1,6 @@
 package Command;
 
-import Exception.DukeException;
+import JohnException.JohnException;
 
 import Task.TaskItem;
 import Task.TaskList;
@@ -15,11 +15,11 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws DukeException {
+    public void execute(TaskList tasks, Ui ui) throws JohnException {
         assert tasks != null : "Command: tasks must not be null";
         assert ui != null : "Command: ui must not be null";
         if (description.isEmpty()) {
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            throw new JohnException("The description of a todo cannot be empty.");
         }
 
         TaskItem t = new Todo(description, false);

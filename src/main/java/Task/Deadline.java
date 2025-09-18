@@ -1,16 +1,18 @@
 package Task;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
+import static Parser.DateParser.formatForDisplay;
+import static Parser.DateParser.formatForStorage;
 
 public class Deadline extends TaskItem {
     private final LocalDate deadline;
 
-    public Deadline(String name, boolean isDone, String by) {
+    public Deadline(String name, boolean isDone, LocalDate by) {
         super(name);
-        assert by != null && !by.trim().isEmpty() : "Deadline: /by must not be empty";
-        this.deadline = LocalDate.parse(by);
+        assert by != null : "Deadline: /by must not be empty";
+        this.deadline = by;
         if (isDone) {
             super.markDone();
         }
@@ -21,19 +23,15 @@ public class Deadline extends TaskItem {
         return "[D]";
     }
 
-    private String dateToString(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-    }
-
     @Override
     public String extraDetail() {
-        return " (by: " + dateToString(deadline) + ")";
+        return " (by: " + formatForDisplay(deadline) + ")";
     }
 
     @Override
     public String toSaveString() {
         assert name.indexOf('|') < 0 : "Save: name must not contain '|'";
-        return "D|" + isDone + "|" + name + "|" + deadline;
+        return "D|" + isDone + "|" + name + "|" + formatForStorage(deadline);
     }
 
     @Override

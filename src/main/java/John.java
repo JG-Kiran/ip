@@ -50,6 +50,15 @@ public class John {
         }
     }
 
+    private boolean exitRequested = false;
+
+    /**
+     * Returns the exit request status to determine whether the app should exit.
+     */
+    public boolean isExitRequested() {
+        return exitRequested;
+    }
+
     /**
      * Get the UI output for each input command as a String.
      *
@@ -61,8 +70,10 @@ public class John {
             Command c = Parser.parse(input);
             String response = c.executeAndReturn(tasks);
             storage.save(tasks);
+            this.exitRequested = c.isExit();
             return response;
         } catch (JohnException e) {
+            this.exitRequested = false;
             return e.getMessage();
         }
     }

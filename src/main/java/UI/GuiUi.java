@@ -33,7 +33,7 @@ public class GuiUi extends Ui {
 
     @Override
     public void showWelcome() {
-        addMessage("Hello! I'm John");
+        addMessage("Hello! I'm John.John");
         addMessage("How may I assist you?");
     }
 

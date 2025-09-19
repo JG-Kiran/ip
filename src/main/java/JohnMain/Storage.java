@@ -1,3 +1,5 @@
+package JohnMain;
+
 import JohnException.JohnException;
 
 import Parser.DateParser;
@@ -23,10 +25,10 @@ public class Storage {
     private final File file = new File("data/john.txt");
 
     /**
-     * Constructs a Storage bound to the given file path.
+     * Constructs a John.John.Storage bound to the given file path.
      * creating the file and directory if they are missing.
      */
-    public Storage() {
+    protected Storage() {
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
             parent.mkdir();
@@ -66,7 +68,7 @@ public class Storage {
      *
      * @param tasks List of tasks to save.
      */
-    public void save(TaskList tasks) {
+    protected void save(TaskList tasks) {
         try (FileWriter fw = new FileWriter(file)) {
             for (TaskItem t : tasks.view()) {
                 fw.write(t.toSaveString());
@@ -75,7 +77,7 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("[Warn] Save failed: " + e.getMessage());
         }
-        assert file.exists() : "Storage.save: file should exist post-save";
+        assert file.exists() : "John.John.Storage.save: file should exist post-save";
     }
 
     /**
@@ -94,14 +96,14 @@ public class Storage {
 
         switch (type) {
         case "T":
-            assert parts.length == 3 : "Storage T expects 3 fields";
+            assert parts.length == 3 : "John.John.Storage T expects 3 fields";
             return new Todo(desc, isDone);
         case "D":
-            assert parts.length == 4 : "Storage D expects 4 fields";
+            assert parts.length == 4 : "John.John.Storage D expects 4 fields";
             LocalDate by = DateParser.parseStorage(parts[3]);
             return new Deadline(desc, isDone, by);
         case "E":
-            assert parts.length == 5 : "Storage E expects 5 fields";
+            assert parts.length == 5 : "John.John.Storage E expects 5 fields";
             LocalDate from = DateParser.parseStorage(parts[3]);
             LocalDate to   = DateParser.parseStorage(parts[4]);
             return new Event(desc, isDone, from, to);

@@ -1,4 +1,4 @@
-# John — your friendly task assistant
+# JohnMain.JohnMain — your friendly task assistant
 
 ![Ui](docs/Ui.png)
 

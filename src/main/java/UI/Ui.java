@@ -30,7 +30,7 @@ public class Ui {
      * Prints the welcome banner and any initial help text.
      */
     public void showWelcome() {
-        System.out.println("Hello! I'm John");
+        System.out.println("Hello! I'm John.John");
         System.out.println("How may I assist you?");
     }
 

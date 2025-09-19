@@ -1,3 +1,5 @@
+package JohnMain;
+
 import Command.Command;
 import JohnException.JohnException;
 import Parser.Parser;
@@ -5,7 +7,7 @@ import Task.TaskList;
 import UI.Ui;
 
 /**
- * Entry point of the John application. Coordinates the main program loop:
+ * Entry point of the John.John application. Coordinates the main program loop:
  * loading tasks from storage, reading user commands, executing them,
  * and saving results back to disk upon exit.
  */
@@ -15,14 +17,14 @@ public class John {
     private final Ui ui;
 
     /**
-     * Creates a John instance with the default storage path and
+     * Creates a John.John instance with the default storage path and
      * supporting components.
      */
     public John() {
         ui = new Ui();
         storage = new Storage();
         tasks = storage.load();
-        System.out.println("[John] tasks @" + System.identityHashCode(tasks) + " after load size=" + tasks.getSize());
+        System.out.println("[John.John] tasks @" + System.identityHashCode(tasks) + " after load size=" + tasks.getSize());
     }
 
     /**
@@ -79,7 +81,7 @@ public class John {
     }
 
     /**
-     * Launches John from the command line.
+     * Launches John.John from the command line.
      *
      * @param args Optional CLI arguments (ignored by default).
      */

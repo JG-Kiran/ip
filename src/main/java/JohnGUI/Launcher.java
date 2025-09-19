@@ -1,3 +1,5 @@
+package JohnGUI;
+
 import javafx.application.Application;
 
 /**

@@ -13,16 +13,15 @@ import java.util.List;
  */
 public class DateParser {
 
-    // === Storage (save/load) ===
-    // Always ISO-8601 (LocalDate.toString uses this). Example: "2025-09-18"
+    // Format to save to storage
     public static final DateTimeFormatter STORAGE =
             DateTimeFormatter.ISO_LOCAL_DATE.withResolverStyle(ResolverStyle.STRICT);
 
-    // === Display (pretty) ===
+    // Display to user
     public static final DateTimeFormatter DISPLAY =
             DateTimeFormatter.ofPattern("MMM d yyyy").withResolverStyle(ResolverStyle.STRICT);
 
-    // === User input formats (strict) ===
+    // User input formats (strict)
     private static final List<DateTimeFormatter> INPUT_FORMATS = List.of(
             DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT), // 2025-09-18
             DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT), // 18/09/2025

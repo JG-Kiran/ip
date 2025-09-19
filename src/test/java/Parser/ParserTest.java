@@ -15,8 +15,8 @@ public class ParserTest {
     }
 
     @Test
-    void date_invalid_throws() {
+    void deadline_invalid_throws() {
         Parser p = new Parser();
-        assertThrows(JohnException.class, () -> p.parse("deadline x /by 30-09-2025"));
+        assertThrows(JohnException.class, () -> p.parse("deadline x due 2025-09-30"));
     }
 }
